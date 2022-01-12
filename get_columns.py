@@ -1,9 +1,10 @@
+import argparse
 import json
 import logging
+import sys
 from pyspark.sql.functions import * 
 from pyspark.sql import SparkSession
 from pyspark.sql.types import *
-import sys
 
 
 def getDatabases(spark, dbList):
@@ -71,7 +72,11 @@ def readParams(filePath):
 
 # logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
-params = readParams('params.json')
+parser = argparse.ArgumentParser(description='Get columns', epilog="python get_columns.py --paramFilePath 'params.json'")
+parser.add_argument('--paramFilePath', dest='paramFilePath', type=str, help='Path of the parameter file')
+args = parser.parse_args()
+
+params = readParams(args.paramFilePath)
 logging.info(json.dumps(params))
 
 spark = SparkSession.builder.appName('colMatch').getOrCreate()
