@@ -72,8 +72,11 @@ def readParams(filePath):
 
 # logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
-parser = argparse.ArgumentParser(description='Get columns', epilog="python get_columns.py --paramFilePath 'params.json'")
+parser = argparse.ArgumentParser(description='Get columns',
+ epilog="python get_columns.py --paramFilePath 'params.json' --outputFilePath 'dbfs:/mnt/data/get_columns/columns1.csv'" 
+)
 parser.add_argument('--paramFilePath', dest='paramFilePath', type=str, help='Path of the parameter file')
+parser.add_argument('--outputFilePath', dest='outputFilePath', type=str, help='Path of the output file')
 args = parser.parse_args()
 
 params = readParams(args.paramFilePath)
@@ -85,5 +88,12 @@ spark = SparkSession.builder.appName('colMatch').getOrCreate()
 databases =  getDatabases(spark, params['databases'])
 tables = getTables(spark, databases, params['tables'])
 columns = getColumns(spark, tables, params['columns'])
-columns.show(100)
+columns.show(5)
 
+try: 
+    columns.coalesce(1).write \
+        .option('header', True) \
+        .csv(args.outputFilePath)
+except Exception as e: 
+    logging.error(f"Unable to write output file")
+    raise

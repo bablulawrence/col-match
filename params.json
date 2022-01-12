@@ -1,9 +1,8 @@
 {
-    "databases": [
- 
-    ],
+    "databases": [],
     "tables": [],
     "columns": [
+        "trip_distance",
         "PULocationID"
     ]
 }
