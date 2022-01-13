@@ -50,7 +50,7 @@ def getColumns(spark, tables, columnList, fuzzyScorer=fuzz.ratio):
         elif(fuzzyScorer == 'token-sort'):
             scorer = fuzz.token_sort_ratio
         elif(fuzzyScorer == 'token-set'):
-            scorer = fuzz.token_sort_ratio
+            scorer = fuzz.token_set_ratio
         else:
             scorer = fuzz.ratio
 
