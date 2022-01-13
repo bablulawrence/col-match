@@ -116,7 +116,7 @@ spark = SparkSession.builder.appName('colMatch').getOrCreate()
 databases =  getDatabases(spark, params['databases'])
 tables = getTables(spark, databases, params['tables'])
 columns = getColumns(spark, tables, params['columns'], args.fuzzyScorer)
-columns.show(50, truncate=False)
+columns.show(10, truncate=False)
 
 try: 
     columns.coalesce(1).write \
