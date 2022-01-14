@@ -1,0 +1,10 @@
+{
+    "sourceSchemaFilePath": "dbfs:/mnt/data/ape/edwr_schema/edwr_se_01_13_22.csv",
+    "sourceSchemaMatchCol": "col_name",
+    "sourceSchemaRowLimit": 100,
+    "targetSchemaFilePath": "dbfs:/mnt/data/ape/unmatched/alice_unmatched_01_13_22.csv",
+    "targetSchemaMatchCol": "Column Name",
+    "targetSchemaRowLimit": 100,
+    "matchedFilePath": "dbfs:/mnt/data/ape/matched/alice_matched_01_13_22.csv",
+    "fuzzyScorer": "token-sort"
+}

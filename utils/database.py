@@ -6,6 +6,20 @@ from pyspark.sql.types import *
 from thefuzz import fuzz
 from thefuzz import process
 
+def readParams(filePath):
+    with open(filePath) as param_file:
+       return json.load(param_file)
+
+def writeCsvFile(df, filePath):
+    try: 
+        df.coalesce(1).write \
+            .option('header', True) \
+            .mode('overwrite') \
+            .csv(filePath)
+    except Exception as e: 
+        logging.error(f"Unable to write output file")
+        raise
+
 def getDatabases(spark, dbList):
     try: 
         logging.error(dbList)
@@ -93,7 +107,3 @@ def getColumns(spark, tables, columnList, fuzzyScorer=fuzz.ratio):
     except Exception as e:
         logging.error(f"Unable to get columns for table {x['tableName']}")
     return columns.sort(col('maxScore').desc())
-
-def readParams(filePath):
-    with open(filePath) as param_file:
-       return json.load(param_file)
