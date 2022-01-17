@@ -164,12 +164,14 @@ def getSelectExpression(leftCols, rightCols):
     expr = expr[:-2] #Remove the extra ',' at the end of expression
     expr += " FROM LEFT CROSS JOIN RIGHT;"    
     return expr
+# def filterCols()
 
-def fuzzyJoin(spark, leftDF, leftDFMatchCol, rightDF, rightDFMatchCol, threshold):
+def fuzzyJoin(spark, leftDF, leftDFMatchCol, leftFileOutputCols, 
+            rightDF, rightDFMatchCol, rightFileOutputCols, threshold):
     leftDF.createOrReplaceTempView('LEFT')
     rightDF.createOrReplaceTempView('RIGHT')    
-    return spark.sql(getSelectExpression(leftDF.columns, rightDF.columns)) \
-            .withColumn('LevenshteinDistance', levenshtein(col(f"L_{replaceSpecialChars(leftDFMatchCol)}"),
-                                                                col(f"R_{replaceSpecialChars(rightDFMatchCol)}"))) \
+    return spark.sql(getSelectExpression(leftFileOutputCols, rightFileOutputCols)) \
+            .withColumn('LevenshteinDistance', levenshtein(upper(col(f"L_{replaceSpecialChars(leftDFMatchCol)}")),
+                                                            upper(col(f"R_{replaceSpecialChars(rightDFMatchCol)}")))) \
             .filter(f"LevenshteinDistance <= {threshold}") \
             .sort(col('LevenshteinDistance').asc())

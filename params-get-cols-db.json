@@ -2,7 +2,7 @@
     "databases": [],
     "tables": [],
     "columns": [
-        "trip_distance",
-        "PULocationID"
+        "OTHR_DEST_TX",
+        "CUST_SEG_DN"
     ]
 }

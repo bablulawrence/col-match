@@ -1,7 +1,8 @@
 import argparse
 from pyspark.sql import SparkSession
-from utils.database import readParams, getDatabases, getTables, getColumns, writeCsvFile
+from utils.fuzzy import readParams, getDatabases, getTables, getColumns, writeCsvFile
 
+#Gets the list of matching columns from specified tables in given databses using fuzzy logic
 parser = argparse.ArgumentParser(description='Get matched columns using fuzzy from specified tables in given databases',
  epilog="python get_cols_db.py --paramFilePath 'params-get-cols-db.json' --outputFilePath 'dbfs:/mnt/data/get_columns/columns1.csv' --fuzzyScorer 'token-sort'" 
 )
