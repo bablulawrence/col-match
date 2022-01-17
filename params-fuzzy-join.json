@@ -1,0 +1,10 @@
+{
+    "leftFilePath": "dbfs:/mnt/data/ape/edwr_schema/edwr_se_01_13_22.csv",
+    "leftFileMatchCol": "col_name",
+    "leftFileRowReadLimit": 1000,
+    "rightFilePath": "dbfs:/mnt/data/ape/unmatched/alice_unmatched_01_13_22.csv",
+    "rightFileMatchCol": "Column Name",
+    "rightFileRowReadLimit": 1000,
+    "joinedFilePath": "dbfs:/mnt/data/ape/joined/alice_matched_01_13_22.csv",
+    "threshold": 6
+}

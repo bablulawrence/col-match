@@ -12,8 +12,16 @@ args = parser.parse_args()
 params = readParams(args.paramFilePath)
 spark = SparkSession.builder.appName('fileSchemaMatch').getOrCreate()
 
-sourceSchemaDF = readCsvFiles(spark, params['sourceSchemaFilePath']).limit(params['sourceSchemaRowLimit'])
-targetSchemaDF = readCsvFiles(spark, params['targetSchemaFilePath']).limit(params['targetSchemaRowLimit'])
+if (params['sourceSchemaRowLimit'] > 0):
+    sourceSchemaDF = readCsvFiles(spark, params['sourceSchemaFilePath']).limit(params['sourceSchemaRowLimit'])
+else: 
+    sourceSchemaDF = readCsvFiles(spark, params['sourceSchemaFilePath'])
+
+if (params['targetSchemaRowLimit'] > 0):
+    targetSchemaDF = readCsvFiles(spark, params['targetSchemaFilePath']).limit(params['targetSchemaRowLimit'])
+else:
+    targetSchemaDF = readCsvFiles(spark, params['targetSchemaFilePath'])
+
 matchedDF = matchColumns(spark, sourceSchemaDF, params['sourceSchemaMatchCol'],
                          targetSchemaDF, params['targetSchemaMatchCol'], params['fuzzyScorer'])
 matchedDF.show(5, truncate=False)
