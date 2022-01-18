@@ -1,6 +1,7 @@
 import argparse
 from pyspark.sql import SparkSession
 from utils.fuzzy import readParams, readCsvFiles, writeCsvFile, fuzzyJoin
+from pyspark.sql.functions import * 
 
 #Joins two datasets based on fuzzy logic
 parser = argparse.ArgumentParser(description='Fuzzy join two files',

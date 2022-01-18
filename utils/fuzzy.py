@@ -170,10 +170,14 @@ def fuzzyJoin(spark, leftDF, leftDFMatchCol, leftFileExcludeCols,
             rightDF, rightDFMatchCol, rightFileExcludeCols, threshold):
     leftDF.createOrReplaceTempView('LEFT')
     rightDF.createOrReplaceTempView('RIGHT')  
-    lcols = list(set(leftDF.columns) - set(leftFileExcludeCols))
-    rcols = list(set(rightDF.columns) - set(rightFileExcludeCols))
-    return spark.sql(getSelectExpression(lcols, rcols)) \
-            .withColumn('LevenshteinDistance', levenshtein(upper(col(f"L_{replaceSpecialChars(leftDFMatchCol)}")),
-                                                            upper(col(f"R_{replaceSpecialChars(rightDFMatchCol)}")))) \
-            .filter(f"LevenshteinDistance <= {threshold}") \
-            .sort(col('LevenshteinDistance').asc())
+    lmcolName= "L_" + replaceSpecialChars(leftDFMatchCol)
+    rmcolName = "R_" + replaceSpecialChars(rightDFMatchCol)
+    lcols = set(leftDF.columns) - set(leftFileExcludeCols)
+    rcols = set(rightDF.columns) - set(rightFileExcludeCols)
+    lcols.add(leftDFMatchCol)
+    rcols.add(rightDFMatchCol)
+    return spark.sql(getSelectExpression(list(lcols), list(rcols))) \
+            .withColumn('LevenshteinDistance', levenshtein(upper(col(lmcolName)), upper(col(rmcolName)))) \
+            .withColumn('score', 100 - col('LevenshteinDistance')/((length(col(lmcolName)) + length(col(rmcolName)))/2) * 100) \
+            .filter(f"score >= {threshold}") \
+            .sort(col('score').desc())
