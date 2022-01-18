@@ -3,15 +3,16 @@
     "leftFileMatchCol": "col_name",
     "leftFileRowReadLimit": 10000,
     "leftFileExcludeCols": [
-        "data_type"
+        "table_name",
+        "col_name",
+        "comment"
     ],
     "rightFilePath": "dbfs:/mnt/data/ape/unmatched/alice_unmatched_01_13_22.csv",
     "rightFileMatchCol": "Column Name",
     "rightFileRowReadLimit": 10000,
     "rightFileExcludeCols": [
-        "Duplicate Tables found",
-        "Internal Verification",
-        "Confirmation Received"
+        "Column Name",
+        "EAP Table Name"
     ],
     "joinedFilePath": "dbfs:/mnt/data/ape/joined/alice_matched_01_13_22.csv",
     "threshold": 6
