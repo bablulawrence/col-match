@@ -1,0 +1,6 @@
+{
+    "aliceMapFilePath": "dbfs:/mnt/data/ape/mapping/Alice_Mapping_status.xlsx",
+    "siqpMapFilePath": "dbfs:/mnt/data/ape/mapping/SIQP Mapping Status.xlsx",
+    "channelOdsFilePath": "dbfs:/mnt/data/ape/mapping/Channel ODS Mapping Status.xlsx",
+    "outputFilePath": "dbfs:/mnt/data/ape/joined/edwr-map-consolidated.csv"
+}
