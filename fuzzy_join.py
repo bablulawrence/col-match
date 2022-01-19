@@ -1,6 +1,7 @@
 import argparse
 from pyspark.sql import SparkSession
 from utils.fuzzy import readParams, readCsvFiles, writeCsvFile, fuzzyJoin
+from pyspark.sql.functions import * 
 
 #Joins two datasets based on fuzzy logic
 parser = argparse.ArgumentParser(description='Fuzzy join two files',
@@ -22,7 +23,7 @@ if (params['rightFileRowReadLimit'] > 0):
 else:
     rightFile = readCsvFiles(spark, params['rightFilePath'])
 
-joinedDF = fuzzyJoin(spark, leftDF, params['leftFileMatchCol'], params['leftFileOutputCols'],
-             rightFile, params['rightFileMatchCol'], params['rightFileOutputCols'], params['threshold'])
+joinedDF = fuzzyJoin(spark, leftDF, params['leftFileMatchCol'], params['leftFileExcludeCols'],
+             rightFile, params['rightFileMatchCol'], params['rightFileExcludeCols'], params['threshold'])
 joinedDF.show(5, truncate=False)
 writeCsvFile(joinedDF, params['joinedFilePath'])

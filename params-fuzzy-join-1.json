@@ -2,15 +2,18 @@
     "leftFilePath": "dbfs:/mnt/data/ape/edwr_schema/edwr_se_01_13_22.csv",
     "leftFileMatchCol": "col_name",
     "leftFileRowReadLimit": 10000,
-    "leftFileExcludeCols": [],
+    "leftFileExcludeCols": [
+        "table_name",
+        "col_name",
+        "comment"
+    ],
     "rightFilePath": "dbfs:/mnt/data/ape/unmatched/alice_unmatched_01_13_22.csv",
     "rightFileMatchCol": "Column Name",
     "rightFileRowReadLimit": 10000,
     "rightFileExcludeCols": [
-        "Duplicate Tables found",
-        "Internal Verification",
-        "Confirmation Received"
+        "Column Name",
+        "EAP Table Name"
     ],
-    "joinedFilePath": "dbfs:/mnt/data/ape/joined/alice_matched_01_13_22-3.csv",
-    "threshold": 50
+    "joinedFilePath": "dbfs:/mnt/data/ape/joined/alice_matched_01_13_22.csv",
+    "threshold": 6
 }

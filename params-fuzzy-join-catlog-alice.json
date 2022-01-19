@@ -1,0 +1,17 @@
+{
+    "leftFilePath": "dbfs:/mnt/data/ape/catalog/EAP Data Catalog.csv",
+    "leftFileMatchCol": "Hive Field",
+    "leftFileRowReadLimit": 0,
+    "leftFileExcludeCols": [],
+    "rightFilePath": "dbfs:/mnt/data/ape/unmatched/alice_unmatched_01_13_22.csv",
+    "rightFileMatchCol": "Column Name",
+    "rightFileRowReadLimit": 0,
+    "rightFileExcludeCols": [
+        "Column Name",
+        "Duplicate Tables found",
+        "Internal Verification",
+        "Confirmation Received"
+    ],
+    "joinedFilePath": "dbfs:/mnt/data/ape/joined/alice_catalog_01_13_22-1.csv",
+    "threshold": 70
+}
